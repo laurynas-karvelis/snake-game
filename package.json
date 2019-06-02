@@ -1,0 +1,15 @@
+{
+  "name": "snake-game",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "genetic-js": "0.1.14",
+    "keypress": "0.2.1",
+    "term-canvas": "0.0.5"
+  }
+}
