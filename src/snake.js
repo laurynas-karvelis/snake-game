@@ -17,13 +17,9 @@ const snakeFactory = ({width, height}, position, size = 20) => {
 
     const defineFood = (_food) => food = _food;
 
-    const shouldDie = () => {
-        const crossedItself = () => {
-            const coors = position.map(([x, y]) => y * width + x);
-            return new Set(coors).size !== position.length;
-        };
-
-        return crossedItself();
+    const crossedItself = () => {
+        const coors = position.map(([x, y]) => y * width + x);
+        return new Set(coors).size !== position.length;
     };
 
     const shouldEat = () => {
@@ -57,16 +53,17 @@ const snakeFactory = ({width, height}, position, size = 20) => {
         const currentHead = head().slice();
 
         if (hit[dir](currentHead)) {
-            die();
-        } else {
-            direction[dir](currentHead);
-
-            position.unshift(currentHead);
-            position.length > size && position.pop();
-
-            shouldDie() && die();
-            alive() && shouldEat();
+            // oh well
+            return die();
         }
+
+        direction[dir](currentHead);
+
+        position.unshift(currentHead);
+        position.length > size && position.pop();
+
+        crossedItself() && die();
+        alive() && shouldEat();
     };
 
     return {getPosition, alive, dead, defineFood, move, emitter};
