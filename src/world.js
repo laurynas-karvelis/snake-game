@@ -5,7 +5,12 @@ const Snake = require('./snake');
 const worldFactory = (width, height) => {
     const keyboard = Keyboard();
     const render = Render(width, height);
-    const snake = Snake({width, height}, [[Math.floor(width / 2), Math.floor(height / 2)]]);
+    const snake = Snake({width, height}, [
+        [
+            Math.floor(width / 2),
+            Math.floor(height / 2)
+        ]
+    ]);
 
     const random = (min, max) => Math.floor(Math.random() * (max - min) + min);
     const randomizeFood = () => [random(2, width - 2), random(2, height - 2)];
