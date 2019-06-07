@@ -1,5 +1,5 @@
 const Canvas = require('term-canvas');
-const COLOR = {BLUE: 'blue', WHITE: 'white', RED: 'red', GREEN: 'green'};
+const COLOR = {BLUE: 'blue', WHITE: 'white', RED: 'red', GREEN: 'green', BLACK: 'black'};
 
 const renderFactory = (width, height) => {
     const canvas = new Canvas(width, height);
@@ -26,7 +26,7 @@ const renderFactory = (width, height) => {
     const gameOver = () => {
         const msg = 'GAME OVER';
 
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = COLOR.BLACK;
         ctx.fillText(msg, Math.floor((width - msg.length) / 2), Math.floor(height / 2));
     };
 

@@ -3,19 +3,19 @@ const EventEmitter = require('events');
 const snakeFactory = ({width, height}, position, size = 20) => {
     const emitter = new EventEmitter;
 
-    let isAlive = true;
-    let food = null;
+    let _isAlive = true;
+    let _food = null;
 
     const getPosition = () => position;
     const head = () => position[0];
-    const alive = () => isAlive;
-    const dead = () => !isAlive;
+    const alive = () => _isAlive;
+    const dead = () => !_isAlive;
     const die = () => {
-        isAlive = false;
+        _isAlive = false;
         emitter.emit('died');
     };
 
-    const defineFood = (_food) => food = _food;
+    const defineFood = (food) => _food = food;
 
     const crossedItself = () => {
         const coors = position.map(([x, y]) => y * width + x);
@@ -25,7 +25,7 @@ const snakeFactory = ({width, height}, position, size = 20) => {
     const shouldEat = () => {
         const [x, y] = head();
         const headCoor = y * width + x;
-        const foodCoor = food && food.length && food[1] * width + food[0];
+        const foodCoor = _food && _food.length && _food[1] * width + _food[0];
 
         if (headCoor === foodCoor) eat();
     };

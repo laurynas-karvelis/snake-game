@@ -16,6 +16,9 @@ const worldFactory = (width, height) => {
     const randomizeFood = () => [random(2, width - 2), random(2, height - 2)];
 
     let food;
+    let lastMoveDirection = 'down';
+    let interval;
+    let ateCount = 0;
 
     const draw = () => {
         snake.defineFood(food);
@@ -27,6 +30,16 @@ const worldFactory = (width, height) => {
         snake.dead() && render.gameOver();
     };
 
+    const syncAutoMove = () => {
+        interval && clearInterval(interval);
+        const maxSpeed = 100;
+        const speed = 1000 * 0.8 - ateCount * maxSpeed;
+
+        interval = setInterval(() => {
+            keyboard.emit('move', lastMoveDirection);
+        }, speed >= maxSpeed && speed || maxSpeed);
+    };
+
     const start = () => {
         render.hideCursor();
         food = randomizeFood();
@@ -34,10 +47,15 @@ const worldFactory = (width, height) => {
         snake.emitter.on('ate', () => {
             food = randomizeFood();
             snake.defineFood(food);
+            ateCount++;
+            syncAutoMove();
         });
+
+        syncAutoMove();
 
         keyboard.on('move', (dir) => {
             snake.alive() && snake.move(dir);
+            lastMoveDirection = dir;
             draw();
         });
 
