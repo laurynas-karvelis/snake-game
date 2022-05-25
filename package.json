@@ -8,8 +8,8 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "genetic-js": "0.1.14",
-    "keypress": "0.2.1",
-    "term-canvas": "0.0.5"
+    "genetic-js": "^0.1.14",
+    "keypress": "^0.2.1",
+    "term-canvas": "^0.0.5"
   }
 }
